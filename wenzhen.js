@@ -4,11 +4,11 @@
  * 并将会员字段改写为永久会员
  *
  * [rewrite_local]
- * ^https?:\/\/(bzapi3|bzapi1800|bzpp3|hwbzpp)\.iwzbz\.com\/ url script-request-header https://raw.githubusercontent.com/你的仓库/wenzhen_qx.js
- * ^https?:\/\/(bzapi3|bzapi1800|bzpp3|hwbzpp)\.iwzbz\.com\/ url script-response-body https://raw.githubusercontent.com/你的仓库/wenzhen_qx.js
+ * ^https?:\/\/(bzapi\d*|bzpp3|hwbzpp)\.iwzbz\.com\/ url script-request-header https://cdn.jsdelivr.net/gh/ruiqicwbjzx/wenzhen-qx@main/wenzhen.js
+ * ^https?:\/\/(bzapi\d*|bzpp3|hwbzpp)\.iwzbz\.com\/ url script-response-body https://cdn.jsdelivr.net/gh/ruiqicwbjzx/wenzhen-qx@main/wenzhen.js
  *
  * [mitm]
- * hostname = bzapi3.iwzbz.com, bzapi1800.iwzbz.com, bzpp3.iwzbz.com, hwbzpp.iwzbz.com
+ * hostname = *.iwzbz.com
  **************************************/
 
 const AUTH_GUID = "8cdb5cd8-73ef-4a5c-8b18-520787eee2f8";
@@ -20,6 +20,7 @@ function replaceGuid(url) {
     const re = new RegExp("([?&])" + key + "=[0-9a-fA-F\\-]*", "g");
     out = out.replace(re, "$1" + key + "=" + AUTH_GUID);
   }
+  out = out.replace(/([?&]vip=)\d+/gi, "$13");
   // getWXPW_nv1?parm=<guid>|<guid>|<其他>
   out = out.replace(
     /([?&]parm=)[0-9a-fA-F\-]+\|[0-9a-fA-F\-]+(\|)/g,
