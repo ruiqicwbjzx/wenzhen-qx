@@ -64,6 +64,10 @@ function onResponse(context, request, response) {
     try {
       var data = JSON.parse(body);
       patchVip(data);
+      // getuserlevel 返回 "等级数字,等级名称"，会员显示为大法弟子
+      if (/\/getuserlevel/i.test(request.url) && typeof data.data === "string" && data.data.indexOf(",") > 0) {
+        data.data = "3,大法弟子";
+      }
       response.body = JSON.stringify(data);
     } catch (e) {}
   }
