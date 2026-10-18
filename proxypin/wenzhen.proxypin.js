@@ -44,9 +44,8 @@ async function onRequest(context, request) {
 
 async function onResponse(context, request, response) {
   let body = response.body;
-  if (typeof body !== "string") return response;
 
-  if (/\/hepan3\.php/.test(request.url)) {
+  if (typeof body === "string" && /\/hepan3\.php/.test(request.url)) {
     let empty = false;
     try { empty = Object.keys(JSON.parse(body)).length === 0; } catch (e) { empty = false; }
     if (empty && request.queries && request.queries.guid && request.queries.guid !== AUTH_GUID) {
