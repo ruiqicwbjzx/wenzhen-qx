@@ -40,6 +40,7 @@ function patchVip(obj) {
 }
 
 function onRequest(context, request) {
+  console.log("wenzhen onRequest " + request.url);
   replaceGuid(request.queries);
   return request;
 }
