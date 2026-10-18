@@ -41,7 +41,8 @@ function patchVip(obj) {
 
 function onRequest(context, request) {
   console.log("wenzhen onRequest " + request.url);
-  replaceGuid(request.queries);
+  // 会员中心的账号资料接口保留用户自己的 guid，其余接口替换
+  if (!/\/getnewuserinfo/i.test(request.url)) replaceGuid(request.queries);
   return request;
 }
 
