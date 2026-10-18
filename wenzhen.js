@@ -43,10 +43,33 @@ function patchVip(obj) {
   }
 }
 
-if (typeof $request !== "undefined") {
+// 合盘接口对非授权 guid 返回空对象 {}, 前端拿到空对象会一直停在"加载中..."
+function hepanFallback(url, body) {
+  if (!/\/hepan3\.php\?/.test(url)) return null;
+  let empty = false;
+  try {
+    empty = Object.keys(JSON.parse(body)).length === 0;
+  } catch (e) {
+    return null;
+  }
+  if (!empty) return null;
+  const fixed = url.replace(/([?&]guid=)[0-9a-fA-F\-]*/i, "$1" + AUTH_GUID);
+  if (fixed === url) return null;
+  try {
+    const resp = $task.fetch({ url: fixed });
+    const text = resp && resp.body != null ? String(resp.body) : "";
+    return text.length > 2 ? text : null;
+  } catch (e) {
+    return null;
+  }
+}
+
+if (typeof $request !== "undefined" && typeof $response === "undefined") {
   $done({ url: replaceGuid($request.url) });
 } else {
   let body = $response.body;
+  const fallback = hepanFallback($request.url, body);
+  if (fallback) body = fallback;
   try {
     const data = JSON.parse(body);
     patchVip(data);
