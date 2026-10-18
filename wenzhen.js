@@ -4,8 +4,8 @@
  * 并将会员字段改写为永久会员
  *
  * [rewrite_local]
- * ^https?:\/\/(bzapi\d*|bzpp3|hwbzpp)\.iwzbz\.com\/ url script-request-header https://cdn.jsdelivr.net/gh/ruiqicwbjzx/wenzhen-qx@main/wenzhen.js
- * ^https?:\/\/(bzapi\d*|bzpp3|hwbzpp)\.iwzbz\.com\/ url script-response-body https://cdn.jsdelivr.net/gh/ruiqicwbjzx/wenzhen-qx@main/wenzhen.js
+ * ^https?:\/\/(bzapi\d*|bzpp3|hwbzpp)\.iwzbz\.com\/ url script-request-header https://cdn.jsdelivr.net/gh/ruiqicwbjzx/wenzhen-qx@e096a5d/wenzhen.js
+ * ^https?:\/\/(bzapi\d*|bzpp3|hwbzpp)\.iwzbz\.com\/ url script-response-body https://cdn.jsdelivr.net/gh/ruiqicwbjzx/wenzhen-qx@e096a5d/wenzhen.js
  *
  * [mitm]
  * hostname = *.iwzbz.com
